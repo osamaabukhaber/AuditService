@@ -17,7 +17,8 @@ export const ilogDbConfig: TypeOrmModuleOptions = {
            path.join(__dirname, '/../database/ilog/entities/views/*{.ts,.js}')
 
     ],
-    synchronize: false,
-    options: { encrypt: false },
+
+    options: { encrypt: true },
+    extra: { trustServerCertificate: true },
 };
 

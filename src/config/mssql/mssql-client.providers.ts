@@ -28,6 +28,6 @@ export const nativeClientProviders = [
             port: Number(process.env.ILOG_DB_PORT),
             pool: { max: 15, min: 2 },
             options: { trustServerCertificate: true },
-        }, 'icare'),
+        }, 'ilog'),
     },
 ];
