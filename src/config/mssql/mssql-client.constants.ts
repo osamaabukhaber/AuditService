@@ -1,0 +1,1 @@
+export const ILOG_MSSQL_POOL = 'ILOG_MSSQL_POOL';
