@@ -1,18 +1,29 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger } from 'nestjs-pino';
-import { CorrelationIdMiddleware } from './common/middleware/correlation-id.middleware';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule,{bufferLogs:true});
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+    AppModule,
+    {
+      logger:false,
+      transport: Transport.RMQ,
+      options: {
+        urls: [process.env.RABBITMQ_URL || 'amqp://user:pass@localhost:5672'],
+        queue: 'audit_queue',
+        queueOptions: {
+          durable: true,
+        },
+      },
+    },
+  );
 
-  app.use(new CorrelationIdMiddleware().use)
-  app.useLogger(app.get(Logger))
-  app.setGlobalPrefix('api/v1');
-  const port = process.env.PORT || 4446;
-  await app.listen(port);
+  app.useLogger(app.get(Logger));
+
+  await app.listen();
 
   const logger = app.get(Logger);
-  logger.log(`Reporting service is running on port ${port}`)
+  logger.log('AuditService microservice is running and listening for messages...');
 }
 void bootstrap();
