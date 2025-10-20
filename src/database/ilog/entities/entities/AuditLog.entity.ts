@@ -3,47 +3,47 @@ import { Entity, Column, PrimaryGeneratedColumn, Index } from 'typeorm';
 @Entity('AuditLog')
 export class AuditLog {
     @PrimaryGeneratedColumn('uuid')
-    Id: string;
+    id: string;
 
     @Index('IX_AuditLog_ByTenant')
     @Column()
-    CentertId: number;
+    centerId: number;
 
     @Column({ type: 'nvarchar', length: 255, nullable: true })
-    CenterName: string;
+    centerName: string;
 
     @Index('IX_AuditLog_ByUser')
     @Column({ type: 'nvarchar', length: 255, nullable: true })
-    UserId: string;
+    userId: string;
 
     @Column({ type: 'nvarchar', length: 255, nullable: true })
-    UserName: string;
+    userName: string;
 
     @Column({ type: 'datetimeoffset', default: () => 'SYSDATETIMEOFFSET()' })
-    Timestamp: Date;
+    timestamp: Date;
 
     @Column({ type: 'nvarchar', length: 100 })
-    Action: string;
+    action: string;
 
     @Column({ type: 'nvarchar', length: 20 })
-    Status: string;
+    status: string;
 
     @Index('IX_AuditLog_ByResource')
     @Column({ type: 'nvarchar', length: 100, nullable: true })
-    ResourceType: string;
+    resourceType: string;
 
     @Column({ type: 'nvarchar', length: 255, nullable: true })
-    ResourceId: string;
+    resourceId: string;
 
     @Column({ type: 'nvarchar', length: 500, nullable: true })
-    ResourceTitle: string;
+    resourceTitle: string;
 
-    @Column({ type: 'nvarchar', length: 'MAX', nullable: true })
-    BeforeState: string;
+    @Column({ type: 'nvarchar', length: 500, nullable: true })
+    beforeState: string;
 
-    @Column({ type: 'nvarchar', length: 'MAX', nullable: true })
-    AfterState: string;
+    @Column({ type: 'nvarchar', length: 500, nullable: true })
+    afterState: string;
 
-    @Column({ type: 'nvarchar', length: 'MAX', nullable: true })
-    Context: string;
+    @Column({ type: 'nvarchar', length: 500, nullable: true })
+    context: string;
 }
