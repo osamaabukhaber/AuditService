@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ilogDbConfig } from './config/database.config';
 import { MssqlClientModule } from './config/mssql/mssql-client.module';
 import { AppLoggerModule } from './common/logger/logger.module';
+import { AuditLogModule } from './modules/audit-log/audit-log.module';
 
 
 
@@ -14,7 +15,7 @@ import { AppLoggerModule } from './common/logger/logger.module';
     //Common imports
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot(ilogDbConfig),
-    MssqlClientModule,AppLoggerModule,
+    MssqlClientModule,AppLoggerModule,AuditLogModule
 
     //Feature Modules  
   ],
